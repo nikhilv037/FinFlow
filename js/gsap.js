@@ -23,7 +23,10 @@ function animateSidebar() {
     opacity: 0,
     duration: 0.6,
     ease: 'power3.out',
+    clearProps: 'transform,opacity',
   });
+
+
 
   gsap.from('.sidebar-logo', {
     scale: 0.5,

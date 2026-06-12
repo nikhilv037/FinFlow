@@ -415,10 +415,6 @@ body {
 }
 
 /* ────────────── RESPONSIVE ────────────────────── */
-@media (max-width: 1024px) {
-  .search-bar { min-width: 200px; }
-}
-
 /* ── Sidebar Overlay ── */
 .sidebar-overlay {
   position: fixed;
@@ -437,15 +433,20 @@ body {
 }
 
 @media (max-width: 1024px) {
-  /* Show hamburger button on tablet and mobile view */
+  .search-bar { min-width: 200px; }
+}
+
+/* --- TABLET VIEW (769px to 1024px) --- */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Show hamburger button on tablet view */
   #mobileSidebarBtn {
     display: flex !important;
   }
   
-  /* Force sidebar to act as collapsed by default */
+  /* Rail navigation defaults */
   .sidebar {
     width: var(--sidebar-collapsed) !important;
-    transition: width var(--transition-base), transform var(--transition-base);
+    transition: width var(--transition-base);
   }
   
   .main-content {
@@ -453,7 +454,7 @@ body {
     transition: margin-left var(--transition-base);
   }
   
-  /* Hide the elements inside sidebar that are hidden when collapsed */
+  /* Hide elements for rail nav by default */
   .sidebar .sidebar-brand { opacity: 0 !important; width: 0 !important; overflow: hidden !important; }
   .sidebar .sidebar-header { gap: 0 !important; }
   .sidebar .sidebar-logo { opacity: 0 !important; width: 0 !important; height: 0 !important; overflow: hidden !important; }
@@ -463,7 +464,7 @@ body {
   .sidebar .nav-badge { opacity: 0 !important; width: 0 !important; overflow: hidden !important; }
   .sidebar .user-info { opacity: 0 !important; width: 0 !important; }
   
-  /* When manually expanded (does NOT have the collapsed class) */
+  /* When expanded on tablet (via clicking toggle/hamburger) */
   .sidebar:not(.collapsed) {
     width: var(--sidebar-width) !important;
     position: fixed;
@@ -472,7 +473,6 @@ body {
     box-shadow: var(--shadow-2xl);
   }
   
-  /* Show elements when manually expanded */
   .sidebar:not(.collapsed) .sidebar-brand { opacity: 1 !important; width: auto !important; }
   .sidebar:not(.collapsed) .sidebar-header { gap: var(--space-3) !important; }
   .sidebar:not(.collapsed) .sidebar-logo { opacity: 1 !important; width: auto !important; height: auto !important; }
@@ -482,9 +482,52 @@ body {
   .sidebar:not(.collapsed) .user-info { opacity: 1 !important; width: auto !important; }
 }
 
+/* --- MOBILE VIEW (<= 768px) --- */
 @media (max-width: 768px) {
-  .search-bar { display: none; }
-  .page-content { padding: var(--space-4); gap: var(--space-4); }
+  /* Show hamburger button on mobile view */
+  #mobileSidebarBtn {
+    display: flex !important;
+  }
+  
+  /* Hide sidebar off-screen by default */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: var(--sidebar-width) !important;
+    transform: translateX(-100%);
+    z-index: 100;
+    transition: transform var(--transition-slow);
+  }
+  
+  /* When mobile menu is opened */
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+  
+  /* Ensure all sidebar elements are visible when open on mobile (it is NOT collapsed when open on mobile) */
+  .sidebar.mobile-open .sidebar-brand { opacity: 1 !important; width: auto !important; }
+  .sidebar.mobile-open .sidebar-header { gap: var(--space-3) !important; }
+  .sidebar.mobile-open .sidebar-logo { opacity: 1 !important; width: auto !important; height: auto !important; }
+  .sidebar.mobile-open .nav-section-label { opacity: 1 !important; height: auto !important; padding: var(--space-4) var(--space-6) var(--space-2) var(--space-6) !important; }
+  .sidebar.mobile-open .nav-label { opacity: 1 !important; width: auto !important; }
+  .sidebar.mobile-open .nav-badge { opacity: 1 !important; width: auto !important; }
+  .sidebar.mobile-open .user-info { opacity: 1 !important; width: auto !important; }
+  
+  .main-content {
+    margin-left: 0 !important;
+    transition: margin-left var(--transition-base);
+  }
+  
+  .search-bar {
+    display: none;
+  }
+  
+  .page-content {
+    padding: var(--space-4);
+    gap: var(--space-4);
+  }
 }
 
 @media (max-width: 480px) {
