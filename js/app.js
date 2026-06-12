@@ -341,12 +341,33 @@ function initSidebar() {
 
   let collapsed = false;
 
+  // Set initial collapsed state on tablet/mobile views (width <= 1024px)
+  if (window.innerWidth <= 1024) {
+    collapsed = true;
+    sidebar.classList.add('collapsed');
+    if (main) main.classList.add('sidebar-collapsed');
+    const icon = toggle ? toggle.querySelector('.material-symbols-outlined') : null;
+    if (icon) icon.textContent = 'menu';
+  }
+
   // ── Desktop toggle ──
   if (toggle) {
     toggle.addEventListener('click', function() {
       collapsed = !collapsed;
       sidebar.classList.toggle('collapsed', collapsed);
       if (main) main.classList.toggle('sidebar-collapsed', collapsed);
+      
+      // Update overlay on tablet & mobile when sidebar is expanded
+      if (window.innerWidth <= 1024) {
+        if (overlay) {
+          if (!collapsed) {
+            overlay.classList.add('active');
+          } else {
+            overlay.classList.remove('active');
+          }
+        }
+      }
+      
       const icon = toggle.querySelector('.material-symbols-outlined');
       if (icon) icon.textContent = collapsed ? 'menu' : 'menu_open';
     });
@@ -355,19 +376,25 @@ function initSidebar() {
   // ── Mobile open ──
   if (mobileBtn) {
     mobileBtn.addEventListener('click', function() {
-      sidebar.classList.add('mobile-open');
+      collapsed = false;
+      sidebar.classList.remove('collapsed');
       if (overlay) overlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      const icon = toggle ? toggle.querySelector('.material-symbols-outlined') : null;
+      if (icon) icon.textContent = 'menu_open';
     });
   }
 
   // ── Close mobile ──
   function closeMobile() {
-    sidebar.classList.remove('mobile-open');
+    collapsed = true;
+    sidebar.classList.add('collapsed');
     if (overlay) overlay.classList.remove('active');
-    document.body.style.overflow = '';
+    const icon = toggle ? toggle.querySelector('.material-symbols-outlined') : null;
+    if (icon) icon.textContent = 'menu';
   }
   if (overlay) overlay.addEventListener('click', closeMobile);
+
+
 
   // ── Nav items ──
   const navItems = sidebar.querySelectorAll('.nav-item');
