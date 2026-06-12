@@ -436,7 +436,46 @@ function initSidebar() {
     });
   }
 
+  // ── Responsive Resize Handler ──
+  let currentCategory = window.innerWidth <= 768 ? 'mobile' : (window.innerWidth <= 1024 ? 'tablet' : 'desktop');
 
+  window.addEventListener('resize', function() {
+    const width = window.innerWidth;
+    const newCategory = width <= 768 ? 'mobile' : (width <= 1024 ? 'tablet' : 'desktop');
+
+    if (newCategory !== currentCategory) {
+      currentCategory = newCategory;
+      
+      // Reset sidebar states when crossing breakpoints
+      if (newCategory === 'mobile') {
+        collapsed = true;
+        sidebar.classList.add('collapsed');
+        sidebar.classList.remove('mobile-open');
+        if (main) main.classList.add('sidebar-collapsed');
+        if (overlay) overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      } else if (newCategory === 'tablet') {
+        collapsed = true;
+        sidebar.classList.add('collapsed');
+        sidebar.classList.remove('mobile-open');
+        if (main) main.classList.add('sidebar-collapsed');
+        if (overlay) overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        const icon = toggle ? toggle.querySelector('.material-symbols-outlined') : null;
+        if (icon) icon.textContent = 'menu';
+      } else {
+        // desktop
+        collapsed = false;
+        sidebar.classList.remove('collapsed');
+        sidebar.classList.remove('mobile-open');
+        if (main) main.classList.remove('sidebar-collapsed');
+        if (overlay) overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        const icon = toggle ? toggle.querySelector('.material-symbols-outlined') : null;
+        if (icon) icon.textContent = 'menu_open';
+      }
+    }
+  });
 
   // ── Nav items ──
   const navItems = sidebar.querySelectorAll('.nav-item');
