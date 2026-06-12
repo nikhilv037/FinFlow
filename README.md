@@ -73,15 +73,7 @@ Since the dashboard uses vanilla JavaScript modules and loads assets dynamically
 2. Open the project folder in VS Code.
 3. Click the **Go Live** button in the status bar at the bottom right.
 
-### Option 2: Python HTTP Server
-Run the following command in the project directory:
-```bash
-# Python 3
-python -m http-server 5500
-```
-Then visit `http://localhost:5500` in your browser.
-
-### Option 3: Node.js (http-server / serve)
+### Option 2: Node.js (http-server / serve)
 Run one of the following commands:
 ```bash
 npx http-server -p 5500
