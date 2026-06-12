@@ -1,0 +1,221 @@
+/* ===================================================
+   FINANCING DASHBOARD – ANIMATIONS
+   =================================================== */
+
+/* ── Base States (pre-animation) ─────────────── */
+.gsap-hidden {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.gsap-hidden-left {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.gsap-hidden-right {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+/* ── Sidebar Slide-in ── */
+@keyframes sidebarEntrance {
+  from { transform: translateX(-100%); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+/* ── Fade Up ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Fade In ── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Scale In ── */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── Skeleton Shimmer ── */
+@keyframes shimmer {
+  0%   { background-position: -800px 0; }
+  100% { background-position:  800px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg,
+    var(--color-border-light) 25%,
+    var(--color-bg) 37%,
+    var(--color-border-light) 63%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Pulse ── */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+.pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+/* ── Spinner ── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.spinner {
+  width: 20px; height: 20px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+/* ── Counter Roll ── */
+@keyframes countUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.count-animate {
+  display: inline-block;
+  animation: countUp 0.5s ease forwards;
+}
+
+/* ── Hover Lift ── */
+.hover-lift {
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Hover Glow ── */
+.hover-glow {
+  transition: box-shadow var(--transition-base);
+}
+.hover-glow:hover {
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.2);
+}
+
+/* ── Click Ripple ── */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+.ripple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.3);
+  border-radius: inherit;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.ripple:active::after {
+  transform: scale(1.5);
+  opacity: 0;
+}
+
+/* ── Active Dot ── */
+@keyframes activePulse {
+  0%   { box-shadow: 0 0 0 0 rgba(16,185,129,0.5); }
+  70%  { box-shadow: 0 0 0 6px rgba(16,185,129,0); }
+  100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+}
+
+.active-dot {
+  width: 8px; height: 8px;
+  background: var(--color-success);
+  border-radius: var(--radius-full);
+  animation: activePulse 2s infinite;
+}
+
+/* ── Notification Badge Bounce ── */
+@keyframes badgeBounce {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.2); }
+}
+.badge-animate { animation: badgeBounce 0.4s ease; }
+
+/* ── Page Transition ── */
+.page-enter {
+  animation: fadeUp 0.4s ease forwards;
+}
+
+/* ── Chart fade in ── */
+.chart-fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* ── Funnel Bar Animated ── */
+.funnel-bar-fill {
+  width: 0;
+}
+.funnel-bar-fill.animated {
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Stagger helper class ── */
+.stagger-item { opacity: 0; }
+
+/* ── Tooltip ── */
+.tooltip-wrap { position: relative; display: inline-flex; }
+.tooltip-wrap .tooltip {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  background: var(--color-text-primary);
+  color: #fff;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-base), transform var(--transition-base);
+  z-index: var(--z-dropdown);
+}
+.tooltip-wrap:hover .tooltip { opacity: 1; transform: translateX(-50%) scale(1); }
+
+/* ── Table Row Reveal ── */
+.table-row-hidden {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+/* ── Copilot typing ── */
+@keyframes typingDot {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40%            { transform: scale(1);   opacity: 1; }
+}
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-3) var(--space-4);
+  background: rgba(255,255,255,0.1);
+  border-radius: 0 var(--radius-md) var(--radius-md) var(--radius-md);
+  width: fit-content;
+}
+.typing-indicator span {
+  width: 6px; height: 6px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 50%;
+  animation: typingDot 1.2s infinite;
+}
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }

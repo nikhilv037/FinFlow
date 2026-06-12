@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FinFlow – Modern Financing Management Dashboard for business users managing customer financing and payment workflows." />
+  <meta name="theme-color" content="#2563EB" />
+  <title>FinFlow – Financing Management Dashboard</title>
+
+  <!-- Material Symbols -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+<!-- ── Mobile Sidebar Overlay ── -->
+<div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+<!-- ════════════════════════════════════════════ -->
+<!--  APP SHELL                                  -->
+<!-- ════════════════════════════════════════════ -->
+<div class="app-shell">
+
+  <!-- ══════════ SIDEBAR ══════════ -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+
+    <!-- Header / Brand -->
+    <div class="sidebar-header">
+      <div class="sidebar-logo" aria-hidden="true">
+        <span class="material-symbols-outlined">account_balance</span>
+      </div>
+      <div class="sidebar-brand">
+        <span class="sidebar-brand-name">FinFlow</span>
+        <span class="sidebar-brand-sub">Financing Platform</span>
+      </div>
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <span class="material-symbols-outlined">menu_open</span>
+      </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sidebar-nav" aria-label="Primary navigation">
+
+      <div class="nav-section-label">Overview</div>
+
+      <a class="nav-item active" href="#" role="menuitem" tabindex="0" aria-current="page">
+        <span class="material-symbols-outlined" aria-hidden="true">dashboard</span>
+        <span class="nav-label">Dashboard</span>
+      </a>
+
+      <a class="nav-item" href="#" role="menuitem" tabindex="0">
+        <span class="material-symbols-outlined" aria-hidden="true">description</span>
+        <span class="nav-label">Applications</span>
+        <span class="nav-badge">12</span>
+      </a>
+
+      <a class="nav-item" href="#" role="menuitem" tabindex="0">
+        <span class="material-symbols-outlined" aria-hidden="true">payments</span>
+        <span class="nav-label">Payments</span>
+        <span class="nav-badge">7</span>
+      </a>
+
+      <div class="nav-section-label">Management</div>
+
+      <a class="nav-item" href="#" role="menuitem" tabindex="0">
+        <span class="material-symbols-outlined" aria-hidden="true">people</span>
+        <span class="nav-label">Customers</span>
+      </a>
+
+      <a class="nav-item" href="#" role="menuitem" tabindex="0">
+        <span class="material-symbols-outlined" aria-hidden="true">account_balance_wallet</span>
+        <span class="nav-label">Loan Portfolio</span>
+      </a>
+
+      <a class="nav-item" href="#" role="menuitem" tabindex="0">
+        <span class="material-symbols-outlined" aria-hidden="true">credit_score</span>
+        <span class="nav-label">Credit Risk</span>
+      </a>
+
+      <div class="nav-section-label">Analytics</div>
+
+      <a class="nav-item" href="#" role="menuitem" tabindex="0">
+        <span class="material-symbols-outlined" aria-hidden="true">bar_chart</span>
+        <span class="nav-label">Reports</span>
+      </a>
+
+      <a class="nav-item" href="#" role="menuitem" tabindex="0">
+        <span class="material-symbols-outlined" aria-hidden="true">smart_toy</span>
+        <span class="nav-label">AI Insights</span>
+      </a>
+
+      <a class="nav-item" href="#" role="menuitem" tabindex="0">
+        <span class="material-symbols-outlined" aria-hidden="true">rule</span>
+        <span class="nav-label">Compliance</span>
+      </a>
+
+      <div class="nav-section-label">System</div>
+
+      <a class="nav-item" href="#" role="menuitem" tabindex="0">
+        <span class="material-symbols-outlined" aria-hidden="true">settings</span>
+        <span class="nav-label">Settings</span>
+      </a>
+
+      <a class="nav-item" href="#" role="menuitem" tabindex="0">
+        <span class="material-symbols-outlined" aria-hidden="true">help</span>
+        <span class="nav-label">Help &amp; Support</span>
+      </a>
+
+    </nav>
+
+    <!-- Footer / User -->
+    <div class="sidebar-footer">
+      <div class="user-avatar" aria-hidden="true">NP</div>
+      <div class="user-info">
+        <div class="user-name">Nikhil Patel</div>
+        <div class="user-role">Credit Manager</div>
+      </div>
+    </div>
+
+  </aside>
+  <!-- /sidebar -->
+
+  <!-- ══════════ MAIN CONTENT ══════════ -->
+  <main class="main-content" id="mainContent">
+
+    <!-- ── Top Navigation ── -->
+    <header class="topbar" role="banner">
+      <div class="topbar-left">
+        <!-- Mobile hamburger -->
+        <button class="icon-btn" id="mobileSidebarBtn" aria-label="Open navigation" style="display:none">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+
+        <div>
+          <h1 class="page-title">Dashboard</h1>
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <span>FinFlow</span>
+            <span class="breadcrumb-sep" aria-hidden="true">›</span>
+            <span class="breadcrumb-current">Overview</span>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Search -->
+      <div class="search-bar" role="search">
+        <span class="material-symbols-outlined" aria-hidden="true">search</span>
+        <input type="search" id="searchInput" placeholder="Search applications, customers…" aria-label="Search applications" />
+        <span class="material-symbols-outlined" style="font-size:14px;opacity:.4" aria-hidden="true">keyboard_command_key</span>
+      </div>
+
+      <div class="topbar-right">
+        <button class="date-pill" id="datePill" aria-label="Current date">
+          <span class="material-symbols-outlined">calendar_today</span>
+          <span id="currentDate">Jun 12, 2026</span>
+        </button>
+
+        <div class="tooltip-wrap">
+          <button class="icon-btn" aria-label="Notifications">
+            <span class="material-symbols-outlined">notifications</span>
+            <span class="notif-dot" aria-label="Unread notifications"></span>
+          </button>
+          <span class="tooltip">Notifications</span>
+        </div>
+
+        <div class="tooltip-wrap">
+          <button class="icon-btn" aria-label="Download report">
+            <span class="material-symbols-outlined">download</span>
+          </button>
+          <span class="tooltip">Export report</span>
+        </div>
+        <!-- Profile Dropdown -->
+        <div class="profile-dropdown-container" id="profileDropdownContainer">
+          <div class="user-avatar" id="topbarUserAvatar" style="width:36px;height:36px;cursor:pointer" aria-label="User menu" tabindex="0">NP</div>
+          <div class="dropdown-menu" id="profileDropdownMenu" role="menu" aria-label="User profile options">
+            <div class="dropdown-header">
+              <div class="user-avatar" id="dropdownUserAvatar" style="width:40px;height:40px">NP</div>
+              <div class="dropdown-user-details">
+                <div class="dropdown-user-name" id="dropdownUserName">Nikhil Patel</div>
+                <div class="dropdown-user-role" id="dropdownUserRole">Credit Manager</div>
+              </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item" id="dropdownUpdateInfo" role="menuitem">
+              <span class="material-symbols-outlined">manage_accounts</span>
+              <span>Update Info</span>
+            </button>
+            <button class="dropdown-item" id="dropdownSettings" role="menuitem">
+              <span class="material-symbols-outlined">settings</span>
+              <span>Settings</span>
+            </button>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item logout-item" id="dropdownLogout" role="menuitem">
+              <span class="material-symbols-outlined">logout</span>
+              <span>Log Out</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- /topbar -->
+
+    <!-- ── Page Content ── -->
+    <div class="page-content" id="page-dashboard">
+
+      <!-- ══ KPI CARDS ══ -->
+      <section aria-labelledby="kpiHeading">
+        <h2 id="kpiHeading" class="sr-only">Key Performance Indicators</h2>
+        <div class="kpi-grid">
+
+          <div class="kpi-card blue hover-lift ripple" tabindex="0" aria-label="Total Applications: 1,284">
+            <div class="kpi-card-header">
+              <div class="kpi-icon blue" aria-hidden="true">
+                <span class="material-symbols-outlined">description</span>
+              </div>
+              <div class="kpi-trend up" aria-label="Up 8.2% from last month">
+                <span class="material-symbols-outlined">arrow_upward</span>8.2%
+              </div>
+            </div>
+            <div class="kpi-value" data-count="1284">1,284</div>
+            <div class="kpi-label">Total Applications</div>
+            <div class="kpi-sub">vs 1,187 last month</div>
+          </div>
+
+          <div class="kpi-card green hover-lift ripple" tabindex="0" aria-label="Approved: 745">
+            <div class="kpi-card-header">
+              <div class="kpi-icon green" aria-hidden="true">
+                <span class="material-symbols-outlined">check_circle</span>
+              </div>
+              <div class="kpi-trend up" aria-label="Up 12% from last month">
+                <span class="material-symbols-outlined">arrow_upward</span>12%
+              </div>
+            </div>
+            <div class="kpi-value" data-count="745">745</div>
+            <div class="kpi-label">Approved</div>
+            <div class="kpi-sub">58% approval rate</div>
+          </div>
+
+          <div class="kpi-card amber hover-lift ripple" tabindex="0" aria-label="Pending Review: 217">
+            <div class="kpi-card-header">
+              <div class="kpi-icon amber" aria-hidden="true">
+                <span class="material-symbols-outlined">pending</span>
+              </div>
+              <div class="kpi-trend down" aria-label="Down 3% from last month">
+                <span class="material-symbols-outlined">arrow_downward</span>3%
+              </div>
+            </div>
+            <div class="kpi-value" data-count="217">217</div>
+            <div class="kpi-label">Pending Review</div>
+            <div class="kpi-sub">Avg wait: 2.3 days</div>
+          </div>
+
+          <div class="kpi-card red hover-lift ripple" tabindex="0" aria-label="Rejected: 115">
+            <div class="kpi-card-header">
+              <div class="kpi-icon red" aria-hidden="true">
+                <span class="material-symbols-outlined">cancel</span>
+              </div>
+              <div class="kpi-trend down" aria-label="Down 5% from last month">
+                <span class="material-symbols-outlined">arrow_downward</span>5%
+              </div>
+            </div>
+            <div class="kpi-value" data-count="115">115</div>
+            <div class="kpi-label">Rejected</div>
+            <div class="kpi-sub">9% rejection rate</div>
+          </div>
+
+          <div class="kpi-card purple hover-lift ripple" tabindex="0" aria-label="Active Financing: $4.2M">
+            <div class="kpi-card-header">
+              <div class="kpi-icon purple" aria-hidden="true">
+                <span class="material-symbols-outlined">account_balance_wallet</span>
+              </div>
+              <div class="kpi-trend up" aria-label="Up 18% from last month">
+                <span class="material-symbols-outlined">arrow_upward</span>18%
+              </div>
+            </div>
+            <div class="kpi-value" data-count="4.2" data-prefix="$" data-suffix="M">$4.2M</div>
+            <div class="kpi-label">Active Financing</div>
+            <div class="kpi-sub">698 active loans</div>
+          </div>
+
+          <div class="kpi-card sky hover-lift ripple" tabindex="0" aria-label="Overdue Payments: 43">
+            <div class="kpi-card-header">
+              <div class="kpi-icon sky" aria-hidden="true">
+                <span class="material-symbols-outlined">alarm</span>
+              </div>
+              <div class="kpi-trend down" aria-label="Down 11% from last month">
+                <span class="material-symbols-outlined">arrow_downward</span>11%
+              </div>
+            </div>
+            <div class="kpi-value" data-count="43">43</div>
+            <div class="kpi-label">Overdue Payments</div>
+            <div class="kpi-sub">$18.4K at risk</div>
+          </div>
+
+        </div>
+      </section>
+      <!-- /kpi -->
+
+      <!-- ══ CHARTS ROW 1 ══ -->
+      <section class="charts-row" aria-label="Trend charts">
+
+        <!-- Approval Trend -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Approval Rate Trend</div>
+              <div class="card-subtitle">Monthly approval vs rejection — last 12 months</div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-sm btn-ghost" aria-label="More options for Approval Trend chart">
+                <span class="material-symbols-outlined">more_horiz</span>
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="chart-container" style="height:240px">
+              <canvas id="approvalTrendChart" role="img" aria-label="Approval Rate Trend Line Chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Volume Chart -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Monthly Financing Volume</div>
+              <div class="card-subtitle">Disbursed vs collected — 2026</div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-sm btn-ghost" aria-label="More options for Volume chart">
+                <span class="material-symbols-outlined">more_horiz</span>
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="chart-container" style="height:240px">
+              <canvas id="financingVolumeChart" role="img" aria-label="Monthly Financing Volume Bar Chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </section>
+      <!-- /charts row 1 -->
+
+      <!-- ══ CHARTS ROW 2 ══ -->
+      <section class="charts-row-3" aria-label="Funnel and AI insights">
+
+        <!-- Left: Funnel bar + Donut -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Application Funnel</div>
+              <div class="card-subtitle">Conversion at each stage</div>
+            </div>
+            <div class="card-actions">
+              <div class="active-dot" aria-label="Live data" title="Live data"></div>
+              <button class="btn btn-sm btn-outline">
+                <span class="material-symbols-outlined">download</span> Export
+              </button>
+            </div>
+          </div>
+          <div class="card-body" style="display:grid;grid-template-columns:1fr 200px;gap:24px;align-items:center">
+            <div class="funnel-wrap" id="funnelSteps" role="list" aria-label="Application funnel stages"></div>
+            <div class="chart-container" style="height:200px">
+              <canvas id="funnelDonutChart" role="img" aria-label="Application Status Donut Chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: AI Insights -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title" style="display:flex;align-items:center;gap:8px">
+                <span class="material-symbols-outlined" style="color:#7C3AED;font-size:18px">smart_toy</span>
+                AI Insights
+              </div>
+              <div class="card-subtitle">Powered by FinFlow AI</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="ai-panel" id="aiInsightsPanel" role="list" aria-label="AI generated insights"></div>
+          </div>
+        </div>
+
+      </section>
+      <!-- /charts row 2 -->
+
+      <!-- ══ PAYMENT COLLECTION ══ -->
+      <section class="card" aria-label="Payment Collection Trend">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Payment Collection Trend</div>
+            <div class="card-subtitle">On-time vs overdue — last 12 weeks</div>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-sm btn-outline" aria-label="Filter payment chart">
+              <span class="material-symbols-outlined">filter_list</span> Filter
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height:200px">
+            <canvas id="paymentCollectionChart" role="img" aria-label="Payment Collection Trend Area Chart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ FINANCING JOURNEY TIMELINE ══ -->
+      <section class="card" aria-labelledby="timelineHeading">
+        <div class="card-header">
+          <div>
+            <h2 id="timelineHeading" class="card-title">Financing Journey — FIN-2401</h2>
+            <div class="card-subtitle">Arjun Mehta · Business Loan · $45,000</div>
+          </div>
+          <div class="card-actions">
+            <span class="badge badge-active">In Progress</span>
+            <button class="btn btn-sm btn-primary">
+              <span class="material-symbols-outlined">open_in_new</span> Full View
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="timeline" id="journeyTimeline" role="list" aria-label="Financing journey steps"></div>
+        </div>
+      </section>
+
+      <!-- ══ APPLICATIONS TABLE ══ -->
+      <section class="card" aria-labelledby="tableHeading">
+        <div class="table-toolbar">
+          <div>
+            <h2 id="tableHeading" class="card-title">Applications</h2>
+            <div class="card-subtitle" id="tableCount">Showing 8 of 8 applications</div>
+          </div>
+          <div class="table-filters" role="group" aria-label="Filter applications">
+            <button class="filter-chip active" data-filter="all" aria-pressed="true">All</button>
+            <button class="filter-chip" data-filter="approved" aria-pressed="false">Approved</button>
+            <button class="filter-chip" data-filter="pending" aria-pressed="false">Pending</button>
+            <button class="filter-chip" data-filter="review" aria-pressed="false">Review</button>
+            <button class="filter-chip" data-filter="rejected" aria-pressed="false">Rejected</button>
+          </div>
+          <button class="btn btn-primary" id="newAppBtn" aria-label="Add new application">
+            <span class="material-symbols-outlined">add</span> New Application
+          </button>
+        </div>
+
+        <div style="overflow-x:auto" role="region" aria-label="Applications data table" tabindex="0">
+          <table class="data-table" aria-label="Financing Applications">
+            <thead>
+              <tr>
+                <th scope="col">Applicant</th>
+                <th scope="col">Type</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Credit Score</th>
+                <th scope="col">Status</th>
+                <th scope="col">Progress</th>
+                <th scope="col">Officer</th>
+                <th scope="col">Date</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="applicationsBody"></tbody>
+          </table>
+        </div>
+
+        <div class="table-footer">
+          <span>Page 1 of 6 · 48 total applications</span>
+          <div class="pagination" role="navigation" aria-label="Table pagination">
+            <button class="page-btn" aria-label="Previous page">
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <button class="page-btn active" aria-current="page" aria-label="Page 1">1</button>
+            <button class="page-btn" aria-label="Page 2">2</button>
+            <button class="page-btn" aria-label="Page 3">3</button>
+            <span style="padding:0 4px;color:var(--color-text-muted)">…</span>
+            <button class="page-btn" aria-label="Page 6">6</button>
+            <button class="page-btn" aria-label="Next page">
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+          </div>
+        </div>
+      </section>
+      <!-- /table -->
+
+      <!-- ══ BOTTOM ROW ══ -->
+      <section class="bottom-row" aria-label="Activity, Copilot, and Quick Stats">
+
+        <!-- Activity Feed -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Recent Activity</div>
+              <div class="card-subtitle">Last 24 hours</div>
+            </div>
+            <button class="btn btn-sm btn-ghost" aria-label="View all activity">View all</button>
+          </div>
+          <div class="card-body" style="padding:8px 0">
+            <div class="activity-list" id="activityList" role="list" aria-label="Recent activity feed"></div>
+          </div>
+        </div>
+
+        <!-- AI Copilot -->
+        <div class="copilot-widget" role="complementary" aria-label="AI Copilot assistant">
+          <div class="copilot-header">
+            <div class="copilot-icon" aria-hidden="true">
+              <span class="material-symbols-outlined">smart_toy</span>
+            </div>
+            <div>
+              <div class="copilot-title">FinFlow AI Copilot</div>
+              <div class="copilot-subtitle">Your financing intelligence assistant</div>
+            </div>
+          </div>
+
+          <div class="copilot-chips" role="group" aria-label="Quick questions">
+            <button class="copilot-chip">Approval trends</button>
+            <button class="copilot-chip">At-risk loans</button>
+            <button class="copilot-chip">Top applicants</button>
+            <button class="copilot-chip">Overdue report</button>
+          </div>
+
+          <div class="copilot-messages" id="copilotMessages" role="log" aria-live="polite" aria-label="Copilot conversation">
+            <div class="copilot-msg ai">
+              Hi Nikhil! 👋 I've analyzed today's data. Approval rate is up 12% and you have 7 overdue payments to review. How can I help?
+            </div>
+          </div>
+
+          <div class="copilot-input-row">
+            <input
+              type="text"
+              class="copilot-input"
+              id="copilotInput"
+              placeholder="Ask anything about your portfolio…"
+              aria-label="Ask AI Copilot a question"
+              maxlength="200"
+            />
+            <button class="copilot-send" id="copilotSend" aria-label="Send message">
+              <span class="material-symbols-outlined">send</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Quick Stats</div>
+              <div class="card-subtitle">Performance highlights</div>
+            </div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:20px">
+
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <span style="font-size:var(--text-sm);font-weight:var(--fw-medium)">Processing Speed</span>
+                <span style="font-size:var(--text-sm);color:var(--color-success);font-weight:600">2.3 days avg</span>
+              </div>
+              <div class="progress-track" style="height:8px">
+                <div class="progress-fill" style="width:77%;background:var(--color-success)"></div>
+              </div>
+            </div>
+
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <span style="font-size:var(--text-sm);font-weight:var(--fw-medium)">Document Completion</span>
+                <span style="font-size:var(--text-sm);color:var(--color-primary);font-weight:600">86%</span>
+              </div>
+              <div class="progress-track" style="height:8px">
+                <div class="progress-fill" style="width:86%;background:var(--color-primary)"></div>
+              </div>
+            </div>
+
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <span style="font-size:var(--text-sm);font-weight:var(--fw-medium)">Collection Rate</span>
+                <span style="font-size:var(--text-sm);color:var(--color-warning);font-weight:600">94.3%</span>
+              </div>
+              <div class="progress-track" style="height:8px">
+                <div class="progress-fill" style="width:94%;background:var(--color-warning)"></div>
+              </div>
+            </div>
+
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <span style="font-size:var(--text-sm);font-weight:var(--fw-medium)">Customer Satisfaction</span>
+                <span style="font-size:var(--text-sm);color:var(--color-success);font-weight:600">4.8 / 5.0</span>
+              </div>
+              <div class="progress-track" style="height:8px">
+                <div class="progress-fill" style="width:96%;background:var(--color-success)"></div>
+              </div>
+            </div>
+
+            <div style="margin-top:8px;padding-top:16px;border-top:1px solid var(--color-border-light);display:flex;gap:12px">
+              <div style="flex:1;text-align:center;padding:12px;background:var(--color-surface-alt);border-radius:var(--radius-md)">
+                <div style="font-size:var(--text-xl);font-weight:var(--fw-extrabold);color:var(--color-primary)">$4.2M</div>
+                <div style="font-size:var(--text-xs);color:var(--color-text-muted);margin-top:2px">Portfolio Value</div>
+              </div>
+              <div style="flex:1;text-align:center;padding:12px;background:var(--color-surface-alt);border-radius:var(--radius-md)">
+                <div style="font-size:var(--text-xl);font-weight:var(--fw-extrabold);color:var(--color-success)">97.2%</div>
+                <div style="font-size:var(--text-xs);color:var(--color-text-muted);margin-top:2px">On-time Rate</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+      <!-- /bottom row -->
+
+    </div>
+    <!-- /page-content -->
+
+  </main>
+  <!-- /main-content -->
+
+</div>
+<!-- /app-shell -->
+
+<!-- Simulated Login/Logout Overlay -->
+<div class="logout-overlay" id="logoutOverlay">
+  <div class="logout-card">
+    <div class="logout-icon">
+      <span class="material-symbols-outlined">lock</span>
+    </div>
+    <h2>Session Terminated</h2>
+    <p>You have been securely logged out of FinFlow.</p>
+    <button class="btn btn-primary" id="loginBtn" style="margin-top:16px; width:100%; justify-content:center;">
+      <span class="material-symbols-outlined" style="margin-right:6px">login</span>
+      Log Back In
+    </button>
+  </div>
+</div>
+
+<!-- Screen reader helper -->
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+  @media (max-width: 768px) {
+    #mobileSidebarBtn { display: flex !important; }
+    .sidebar-overlay.active { display: block; }
+  }
+</style>
+
+<!-- App Scripts -->
+<script src="js/charts.js"></script>
+<script src="js/gsap.js"></script>
+<script src="js/pages.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
